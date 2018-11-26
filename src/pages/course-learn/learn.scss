@@ -1,0 +1,59 @@
+.video-container{
+	width: 100%;
+}
+.detail-header{
+	background: #ffffff;
+	padding: 20px;
+	line-height: 50px;
+}
+.detail-option{
+	background: #ffffff;
+	padding: 20px;
+	line-height: 50px;
+	.detail-item{
+		display: flex;
+		justify-content: space-between;
+	}
+	.check-more{
+		color: #7b4413;
+	}
+	.play-btn{
+		display: inline-block;
+		width: 30px;
+		height: 30px;
+		border-radius: 100%;
+		background: #7b4413;
+		margin-left: 15px;
+	}
+	.people-img{
+		width: 60px;
+		height: 60px;
+		border-radius: 100%;
+		margin-left: 10px;
+	}
+	.course-title{
+		font-size: 32px;
+		line-height: 60px;
+		border-bottom: 1px solid #eeeeee;
+	}
+}
+.detail-bottom{
+	width: 100%;
+	position: fixed;
+	left: 0px;
+	bottom: 0px;
+	padding: 20px;
+	background: #ffffff;
+	display: flex;
+	justify-content: center;
+	box-sizing: border-box;
+	view{
+		width: 100%;
+		padding: 20px 0px;
+		color: #ffffff;
+		background: #fe3a08;
+		border-radius: 10px;
+		box-sizing: border-box;
+		text-align: center;
+	}
+}

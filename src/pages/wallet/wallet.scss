@@ -1,0 +1,49 @@
+.center-header{
+  background: #2d2d2d;
+  color: #ffffff;
+  height: 300px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+.center-card{
+	position: relative;
+	.btn-contact{
+		position: absolute;
+		left: 0px;
+		bottom: 2px;
+		width: 100%;
+		opacity: 0;
+	}
+}
+.user-info{
+	color: #ffffff;
+	display: inline-block !important;
+	margin-left: 20px;
+}
+.user-rank{
+	color: #ffffff;
+	margin-top: 10px;
+}
+.user-account{
+	background: #2d2d2d;
+	display: block;
+	height: 160px;
+	text-align: center;
+	font-size: 50px;
+	padding-top: 30px;
+	box-sizing: border-box;
+}
+.center-header-option{
+	margin-top: 20px;
+	color: #ffffff;
+	display: flex;
+	justify-content: center;
+	.option{
+		flex: 1;
+		text-align: center;
+		border-right: 1px solid #ffffff;
+	}
+	.border-none{
+		border: none;
+	}
+}

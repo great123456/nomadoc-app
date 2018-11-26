@@ -1,0 +1,31 @@
+// 全局样式
+html, body, #app {
+  height: 100%;
+  min-height: 100%;
+  font-family: PingFangSC-Medium;
+}
+view {
+  display: block;
+  font-size: 30rpx;
+  font-family: 'PingFangSC-Regular';
+  vertical-align: top;
+}
+page {
+  position: relative;
+  min-height: 100%;
+}
+image {
+  display: inline-block;
+  vertical-align: middle;
+}
+.container{
+  min-height:100%;
+  background: #eeeeee;
+  box-sizing: border-box;
+}
+.not-data{
+  color: #b5b6b7;
+  margin-top: 30rpx;
+  font-size: 30rpx;
+  text-align: center;
+}
