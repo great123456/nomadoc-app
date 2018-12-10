@@ -8,6 +8,7 @@ import tabImage2 from '../../images/tuandui@2x.png'
 import tabImage3 from '../../images/maihuozhuanhua@2x.png'
 import tabImage4 from '../../images/tuiguang@2x.png'
 import courseImage from '../../images/neirongtu1@2x.png'
+import { weixinlogin, apiGetUserInfo } from '../../service/index'
 
 class Index extends Component {
 
@@ -54,7 +55,37 @@ class Index extends Component {
   componentDidShow () { 
     
   }
+  
+  getUserInfo(e) {
+    const iv = e.detail.iv
+    const encryptedData = e.detail.encryptedData
+    Taro.login({
+      success (res) {
+        if (res.code) {
+          const code = res.code
+          weixinlogin({
+            code: res.code
+          })
+          .then(res => {
+            console.log('code', res.data)
+            const session_key = res.data.session_key
+            apiGetUserInfo({
+              code: code,
+              sessionKey: session_key,
+              encryptedData: encryptedData,
+              iv: iv
+            })
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    })
+  }
 
+  userLogin() {
+    
+  }
   componentDidHide () { }
 
   courseDetailPage(){
@@ -140,6 +171,7 @@ class Index extends Component {
         <View className="course-list">
           {listItem}
         </View>
+        <Button size='mini' open-type="getUserInfo" lang="zh_CN" ongetuserinfo={this.getUserInfo}>登录</Button>
         <View className='not-data'>已经加载完毕</View>
       </View>
     )
