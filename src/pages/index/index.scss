@@ -27,18 +27,17 @@
 	}
 }
 .course-list{
-	margin-top: 26px;
-    background: #ffffff;
+	  margin-top: 26px;
+    padding: 10px;
     .course-item{
       padding: 20px;
-      border-bottom: 1px solid #eeeeee;
-      display: flex;
-      justify-content: space-between;
+      background: #ffffff;
+      margin-bottom: 20px;
+      border-radius: 10px;
       .course-title{
       	font-size: 26px;
       }
       .course-name{
-      	color: #666666;
       	margin-top: 50px;
       }
       .course-type{
@@ -47,14 +46,15 @@
       .course-number{
       	color: #666666;
       	display: inline-block;
-      	margin-left: 30px;
+        float: right;
       }
       .course-price{
       	color: #d71617;
-      	float: right;
+        margin-left: 30px;
       }
     }
     .course-image{
-      width: 230px;
+      width: 100%;
+      border-radius: 10px;
     }
 }

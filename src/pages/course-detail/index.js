@@ -9,6 +9,8 @@ import shareImage from '../../images/zhuanfa@2x.png'
 import shareImage2 from '../../images/shengcheng@2x.png'
 import posterImage from '../../images/poster.png'
 
+import { apiCourseDetail, apiCoursePay } from '../../service/index'
+
 class Detail extends Component {
 
   config = {
@@ -23,11 +25,36 @@ class Detail extends Component {
     super(props)
     this.state = {
       showActionSheet: false,
-      showCanvas: true
+      showCanvas: true,
+      detail: {}
     }
   }
+  
+  componentWillMount() {
+    console.log('params',this.$router.params)
+    const id = this.$router.params.id
+    apiCourseDetail({
+      id: id
+    })
+    .then((res) => {
+      if (res.code == 200){
+        const detail = res.data
+        this.setState({
+          detail: detail
+        })
+      }else {
+        Taro.showToast({
+          title: res.msg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    })
+  }
 
-  componentWillUnmount () { }
+  componentWillUnmount () { 
+    
+  }
 
   componentDidShow () { 
     this.setState({
@@ -40,6 +67,26 @@ class Detail extends Component {
   setShowActionSheet(){
     this.setState({
       showActionSheet: true
+    })
+  }
+
+  payCourseFee() { // 支付
+    const { detail } = this.state
+    const userInfo = Taro.getStorageSync('userInfo')
+    apiCoursePay({
+      id: detail.id,
+      openid: userInfo.openId
+    })
+    .then((res) => {
+      if(res.code == 200) {
+        console.log('pay',res)
+      }else {
+        Taro.showToast({
+          title: res.msg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
     })
   }
   // 生成海报
@@ -115,6 +162,7 @@ class Detail extends Component {
   }
   render () {
     const canvasItem = null
+    const { detail } = this.state
     if (this.state.showCanvas){
       canvasItem = (
         <Canvas style='width: 375px; height: 600px;margin-top:100px;' canvasId='canvas' />
@@ -124,52 +172,51 @@ class Detail extends Component {
       <View className='container'>
         <Video
           className='video-container'
-          src='https://aweme.snssdk.com/aweme/v1/playwm/?video_id=v0200f770000bfn82c7iv42dm6nko1jg&line=0'
+          src={detail.course_film}
           controls={true}
           autoplay={false}
-          poster='https://xierdunapi.hxgtech.com/upload/img/20181117/20181117173118-5befdfe61ff69.png'
+          poster={detail.course_img}
           initialTime='0'
           id='video'
           loop={false}
           muted={false}
         />
         <View className='detail-header'>
-          <View>标题: 如何精准的表达发展VIP会员</View>
+          <View>标题: {detail.course_title}</View>
           <View>票价: 
-            <Text className='course-price'>￥9.9元</Text>
+            <Text className='course-price'>￥{detail.course_ticket_price}元</Text>
             <View className='course-number'>
               <Image
                 className='number-img'
                 src='../../images/guankanrenshu@2x.png'
               />
-              <Text>1639人</Text>
+              <Text>{detail.view_numbers}人</Text>
             </View>
           </View>
         </View>
 
         <View className='detail-option'>
           <View className='detail-item'>
-            <View>讲师: 赵雅贞</View>
+            <View>讲师: {detail.course_lecturer}</View>
             <View>
               <Text className='check-more'>点击查看更多</Text>
               <Text className='play-btn'></Text>
             </View>
           </View>
           <View className='detail-item' style='margin-top:12px;'>
-            <View>学习成员</View>
+            <View className='people-left'>学习成员</View>
             <View>
-              <Image
-                className='people-img'
-                src={peopleImage}
-              />
-              <Image
-                className='people-img'
-                src={peopleImage}
-              />
-              <Image
-                className='people-img'
-                src={peopleImage}
-              />
+              {
+                detail.views.map((people, index) => {
+                  return (
+                      <Image
+                          key={index}
+                          className='people-img'
+                          src={people.url}
+                        />
+                    )
+                })
+              }
             </View>
           </View>
         </View>
@@ -177,12 +224,12 @@ class Detail extends Component {
          <View className='detail-option'>
            <View className='course-title'>课程介绍</View>
            <View className='corse-introduce'>
-             帮助大家更精准的表达出每日一淘的核心价值,更好的说服VIP会员
+             {detail.course_introduce}
            </View>
          </View>
 
          <View className='detail-bottom'>
-           <View style='margin-right:15px;'>付费观看课程</View>
+           <View style='margin-right:15px;' onClick={this.payCourseFee}>付费观看课程</View>
            <View style='margin-left:15px;' onClick={this.setShowActionSheet}>分享赚5元</View>
          </View>
 

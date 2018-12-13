@@ -1,5 +1,6 @@
 .container{
 	min-height: 100vh;
+	padding-bottom: 160px;
 }
 .video-container{
 	width: 100%;
@@ -31,6 +32,9 @@
 	.detail-item{
 		display: flex;
 		justify-content: space-between;
+	}
+	.people-left{
+	   min-width: 200px;
 	}
 	.check-more{
 		color: #7b4413;
